@@ -17,6 +17,8 @@ class MediaField extends Field
 
     protected $multiple = false;
 
+    protected $withThumbnails = true;
+
     protected $collection = null;
 
     protected $detailThumbnailSize = null;
@@ -44,6 +46,12 @@ class MediaField extends Field
         return $this;
     }
 
+    public function withoutThumbnails()
+    {
+        $this->withThumbnails = false;
+
+        return $this;
+    }
 
     public function collection($collection)
     {
@@ -61,6 +69,7 @@ class MediaField extends Field
     {
         return array_merge(parent::jsonSerialize(), [
             'multiple' => $this->multiple,
+            'withThumbnails' => $this->withThumbnails,
             'order' => $this->multiple,
             'displayCollection' => $this->collection,
             'collections' => config('nova-media-field.collections'),
